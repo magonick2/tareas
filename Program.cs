@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=tareas.db"));
 
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 // 3. Configurar el pipeline de solicitudes HTTP

@@ -1,0 +1,9 @@
+namespace TareasApi.Models
+{
+    public class TareaExternalDto
+    {
+        public int ExternalId { get; set; }
+        public string Titulo { get; set; } = string.Empty;
+        public bool Completado { get; set; }
+    }
+}
