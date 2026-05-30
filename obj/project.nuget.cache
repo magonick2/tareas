@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "zRIH0OMhbOQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\gon15\\OneDrive\\Escritorio\\pc3progra\\TareasApi\\TareasApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gon15\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\gon15\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
