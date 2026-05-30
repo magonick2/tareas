@@ -16,11 +16,40 @@ namespace TareasApi.Controllers
             _context = context;
         }
 
-        // GET: api/tareas
+        // PREGUNTA 2: GET /api/tareas con filtros
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tarea>>> GetTareas()
+        public async Task<ActionResult<IEnumerable<Tarea>>> GetTareas(
+            [FromQuery] EstadoTarea? estado, 
+            [FromQuery] PrioridadTarea? prioridad,
+            [FromQuery] DateTime? fechaInicio, 
+            [FromQuery] DateTime? fechaFin)
         {
-            return await _context.Tareas.ToListAsync();
+            var query = _context.Tareas.AsQueryable();
+
+            // Filtro por Estado
+            if (estado.HasValue)
+            {
+                query = query.Where(t => t.Estado == estado.Value);
+            }
+
+            // Filtro por Prioridad
+            if (prioridad.HasValue)
+            {
+                query = query.Where(t => t.Prioridad == prioridad.Value);
+            }
+
+            // Filtro por Rango de fechas y Validación (Error 400)
+            if (fechaInicio.HasValue && fechaFin.HasValue)
+            {
+                if (fechaInicio > fechaFin)
+                {
+                    return BadRequest("La fecha de inicio no puede ser mayor que la fecha de fin.");
+                }
+                query = query.Where(t => t.FechaVencimiento >= fechaInicio.Value && 
+                                         t.FechaVencimiento <= fechaFin.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         // GET: api/tareas/5
@@ -36,7 +65,6 @@ namespace TareasApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Tarea>> PostTarea(Tarea tarea)
         {
-            // Validación de fecha de vencimiento
             if (tarea.FechaVencimiento.Date < DateTime.Now.Date)
             {
                 return BadRequest("La fecha de vencimiento no puede ser menor a la fecha actual.");
